@@ -1,11 +1,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.selfi.MainActivity" >
+    tools:context="com.example.wrap.MainActivity" >
 
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:showAsAction="never"
         android:title="@string/action_settings"/>
+
+    <item android:id="@+id/action_add_album"
+        android:orderInCategory="98"
+          android:title="@string/action_add_album"
+          android:showAsAction="ifRoom"
+          android:icon="@drawable/ic_album_add"
+          android:visible="false">
+    </item>
 
 </menu>
