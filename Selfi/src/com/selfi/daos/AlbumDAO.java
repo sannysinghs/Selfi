@@ -2,61 +2,50 @@ package com.selfi.daos;
 
 import java.util.ArrayList;
 
-import com.selfi.models.Album;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
+import android.provider.BaseColumns;
 
-public class AlbumDAO extends SQLiteOpenHelper{
-	private static final int DB_VERSION = 2;
-	private static final String DB_NAME = "Selfithumbs";
-	private static final String TABLE_ALBUM = "albums";
-	private static final String KEY_ID = "id";
-	private static final String KEY_TITLE = "title";
-	private static final String KEY_DESC = "description";
+import com.selfi.daos.DAOHelper.DBHelper;
+import com.selfi.models.Album;
+
+public class AlbumDAO {
 	
-	public AlbumDAO(Context context) {
-		super(context, DB_NAME, null, DB_VERSION);
-	}
+	private Context context;
+	private DBHelper dbHelper;
 	
-	@Override
-	public void onCreate(SQLiteDatabase db) {
-		// TODO Auto-generated method stub
+	public static abstract class AlbumEntry implements BaseColumns {
+        public static final String TABLE_NAME = "entry";
+        public static final String COLUMN_NAME_TITLE = "title";
+        public static final String COLUMN_NAME_DESCRIPTION = "description";
+        public static final String COLUMN_NAME_CREATED_AT = "created_at";
+        public static final String COLUMN_NAME_UPDATED_AT = "updated_at";
+       
+       
+    }
+	
+	public AlbumDAO(Context ctx) {
+		dbHelper = new DAOHelper(ctx).getDbHelper();
 		
-		 String CREATE_ALBUM_TABLE = "CREATE TABLE `albums` ("+
-											"`id`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"+
-											"`title`	TEXT,"+
-											"`description`	TEXT,"+
-											"`created_at`	TEXT,"+
-											"`updated_at`	TEXT"+
-											")";
-	 
-	        db.execSQL(CREATE_ALBUM_TABLE);
-	        
-	}
-	
-	@Override
-	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		// TODO Auto-generated method stub
-		db.execSQL("DROP TABLE IF EXISTS albums");
-		this.onCreate(db);
 	}
 	
 	public void addNewAlbum(Album a){
-		SQLiteDatabase db = this.getWritableDatabase();
+		
+		SQLiteDatabase db = dbHelper.getWritableDatabase();
 		ContentValues cn = new ContentValues();
-		cn.put(KEY_TITLE, a.getTitle());
-		cn.put(KEY_DESC, a.getDesc());
-		db.insert(TABLE_ALBUM, null, cn);
+		cn.put(AlbumEntry.COLUMN_NAME_TITLE, a.getTitle());
+		cn.put(AlbumEntry.COLUMN_NAME_DESCRIPTION, a.getDesc());
+		db.insert(AlbumEntry.TABLE_NAME, null, cn);
 		db.close();
+		
+		
 	}
 	
 	public ArrayList<Album> getAllAlbums(){
-		String sql = "SELECT * FROM "+TABLE_ALBUM;
-		SQLiteDatabase db = this.getWritableDatabase();
+		String sql = "SELECT * FROM "+AlbumEntry.TABLE_NAME;
+		SQLiteDatabase db = dbHelper.getWritableDatabase();
 		Cursor cursor = db.rawQuery(sql, null);
 		
 		ArrayList<Album> albums = new ArrayList<Album>();
@@ -77,10 +66,10 @@ public class AlbumDAO extends SQLiteOpenHelper{
 
 	public int delete(Album album) {
 		// TODO Auto-generated method stub
-		SQLiteDatabase db = this.getWritableDatabase();
-		String whereClause = "id = ?";
+		SQLiteDatabase db = dbHelper.getWritableDatabase();
+		String whereClause = AlbumEntry._ID + " = ?";
 		String[] whereArgs = new String[] { String.valueOf(album.getId()) } ;
-		int delete = db.delete(TABLE_ALBUM, whereClause, whereArgs);
+		int delete = db.delete(AlbumEntry.TABLE_NAME, whereClause, whereArgs);
 		db.close();
 		return delete;
 	}
@@ -88,15 +77,15 @@ public class AlbumDAO extends SQLiteOpenHelper{
 	public void updateAlbum(Album a) {
 		// TODO Auto-generated method stub
 		//get Writable database
-		SQLiteDatabase db = this.getWritableDatabase();
+		SQLiteDatabase db = dbHelper.getWritableDatabase();
 		
 		//create key,value pair 
 		ContentValues cn = new ContentValues();
-		cn.put(KEY_TITLE, a.getTitle());
-		cn.put(KEY_DESC, a.getDesc());
+		cn.put(AlbumEntry.COLUMN_NAME_TITLE, a.getTitle());
+		cn.put(AlbumEntry.COLUMN_NAME_DESCRIPTION, a.getDesc());
 		
 		//update to db
-		db.update(TABLE_ALBUM, cn, KEY_ID+"= ?", new String[] {String.valueOf(a.getId())});
+		db.update(AlbumEntry.TABLE_NAME, cn, AlbumEntry._ID+"= ?", new String[] {String.valueOf(a.getId())});
 		
 		//close db
 		db.close();

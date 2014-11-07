@@ -35,6 +35,10 @@ public class Album{
 		this.date = date;
 	}
 	
+	public Album(){
+		
+	}
+	
 	public Album(String title,String desc){
 		this.title = title;
 		this.desc = desc;
@@ -44,9 +48,7 @@ public class Album{
 		this.id=id;
 	}
 	
-	public Album(){
-		
-	}
+	
 	public Album(int id ,String title,String desc,Date date) {
 		// TODO Auto-generated constructor stub
 		this(id,title,desc);

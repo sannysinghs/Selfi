@@ -31,36 +31,24 @@ public class NaviDrawerAdapter extends BaseAdapter {
 		this.naviList = naviList;
 	}
 	
-	/* (non-Javadoc)
-	 * @see android.widget.Adapter#getCount()
-	 */
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
 		return naviList.size();
 	}
-
-	/* (non-Javadoc)
-	 * @see android.widget.Adapter#getItem(int)
-	 */
+	
 	@Override
 	public NaviDrawer getItem(int position) {
 		// TODO Auto-generated method stub
 		return naviList.get(position);
 	}
-
-	/* (non-Javadoc)
-	 * @see android.widget.Adapter#getItemId(int)
-	 */
+	
 	@Override
 	public long getItemId(int position) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
-	/* (non-Javadoc)
-	 * @see android.widget.Adapter#getView(int, android.view.View, android.view.ViewGroup)
-	 */
+	
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub

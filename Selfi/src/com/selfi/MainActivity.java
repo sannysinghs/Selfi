@@ -20,6 +20,7 @@ import android.widget.ListView;
 
 import com.selfi.adapters.NaviDrawerAdapter;
 import com.selfi.fragments.FAlbum;
+import com.selfi.fragments.FDrawer;
 import com.selfi.fragments.FPhoto;
 import com.selfi.models.NaviDrawer;
 
@@ -65,7 +66,7 @@ public class MainActivity extends Activity {
 				
 			}
 		});
-		
+	
 		//Handle Drawer cpen and close event
 		mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.drawable.ic_drawer, R.string.app_name, R.string.app_name){
 			@Override
@@ -87,6 +88,9 @@ public class MainActivity extends Activity {
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setHomeButtonEnabled(true);
 		
+		// set the photo fragment as default one 
+		displayView(0);
+		
 	}
 	//display selected view from left_drawer
 	protected void displayView(int position) {
@@ -97,7 +101,7 @@ public class MainActivity extends Activity {
 			mFragment = new FPhoto();
 			break;
 		case 1 :
-			mFragment = new FPhoto();
+			mFragment = new FDrawer();
 			break;
 		case 2:
 			mFragment = new FAlbum();
