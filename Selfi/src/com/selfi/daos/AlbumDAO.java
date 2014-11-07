@@ -75,13 +75,14 @@ public class AlbumDAO extends SQLiteOpenHelper{
 		return albums;
 	}
 
-	public void delete(Album album) {
+	public int delete(Album album) {
 		// TODO Auto-generated method stub
 		SQLiteDatabase db = this.getWritableDatabase();
 		String whereClause = "id = ?";
 		String[] whereArgs = new String[] { String.valueOf(album.getId()) } ;
-		db.delete(TABLE_ALBUM, whereClause, whereArgs);
+		int delete = db.delete(TABLE_ALBUM, whereClause, whereArgs);
 		db.close();
+		return delete;
 	}
 
 	public void updateAlbum(Album a) {

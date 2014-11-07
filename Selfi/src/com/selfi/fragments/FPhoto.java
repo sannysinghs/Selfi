@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 import com.selfi.R;
 
-public class PhotoFragment extends Fragment {
+public class FPhoto extends Fragment {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {

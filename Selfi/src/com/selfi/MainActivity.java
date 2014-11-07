@@ -20,7 +20,7 @@ import android.widget.ListView;
 
 import com.selfi.adapters.NaviDrawerAdapter;
 import com.selfi.fragments.FAlbum;
-import com.selfi.fragments.PhotoFragment;
+import com.selfi.fragments.FPhoto;
 import com.selfi.models.NaviDrawer;
 
 public class MainActivity extends Activity {
@@ -94,10 +94,10 @@ public class MainActivity extends Activity {
 		Fragment mFragment = null;
 		switch (position) {
 		case 0:
-			mFragment = new PhotoFragment();
+			mFragment = new FPhoto();
 			break;
 		case 1 :
-			mFragment = new PhotoFragment();
+			mFragment = new FPhoto();
 			break;
 		case 2:
 			mFragment = new FAlbum();

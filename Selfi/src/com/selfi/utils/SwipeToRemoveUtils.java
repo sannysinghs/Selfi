@@ -1,6 +1,7 @@
 package com.selfi.utils;
 
 import android.graphics.Rect;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
@@ -11,7 +12,7 @@ import android.view.animation.Animation.AnimationListener;
 import android.view.animation.Transformation;
 import android.widget.ListView;
 
-public class SwipeToRemove implements OnTouchListener {
+public class SwipeToRemoveUtils implements OnTouchListener {
 	private ListView mListView;
 	private DismissCallbacks callbacks;
 	int mSlop , mAnimationTime;
@@ -26,7 +27,7 @@ public class SwipeToRemove implements OnTouchListener {
 		void OnDismiss(int position);
 	}
 	
-	public SwipeToRemove(ListView mListView , DismissCallbacks callbacks){
+	public SwipeToRemoveUtils(ListView mListView , DismissCallbacks callbacks){
 		this.mListView = mListView;
 		this.callbacks = callbacks;
 		ViewConfiguration album_list_config = ViewConfiguration.get(mListView.getContext());
@@ -163,8 +164,6 @@ public class SwipeToRemove implements OnTouchListener {
 			
 			@Override
 			public void onAnimationEnd(Animation animation) {
-				// TODO Auto-generated method stub
-//				albumAdapter.removeAlbum(item,pos);
 				callbacks.OnDismiss(pos);
 			}
 		});

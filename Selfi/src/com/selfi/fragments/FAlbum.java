@@ -2,6 +2,7 @@ package com.selfi.fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ActionMode;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -23,7 +24,7 @@ import com.selfi.daos.AlbumDAO;
 import com.selfi.dialogs.AddNewAlbumDialog;
 import com.selfi.dialogs.EditAlbumDialog;
 import com.selfi.models.Album;
-import com.selfi.utils.SwipeToRemove;
+import com.selfi.utils.SwipeToRemoveUtils;
 
 
 public class FAlbum extends Fragment implements OnItemClickListener {
@@ -57,11 +58,12 @@ public class FAlbum extends Fragment implements OnItemClickListener {
 		albumListView.setOnItemClickListener(this);
 		albumListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
 		
-		new SwipeToRemove(albumListView, new SwipeToRemove.DismissCallbacks() {
+		new SwipeToRemoveUtils(albumListView, new SwipeToRemoveUtils.DismissCallbacks() {
 			@Override
 			public void OnDismiss(int position) {
 				// TODO Auto-generated method stub
 				albumAdapter.removeAlbum(position);
+				Log.d("", "I am going to remove ");
 			}
 		});
 		

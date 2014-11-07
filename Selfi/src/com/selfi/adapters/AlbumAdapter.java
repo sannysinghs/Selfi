@@ -6,6 +6,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -138,9 +139,12 @@ public class AlbumAdapter extends ArrayAdapter<Album>{
 
 	public void removeAlbum( int position) {
 		// TODO Auto-generated method stub
-		albumDAO.delete(albums.get(position));
+		Log.d("Remove pos ",position+" and Remove Object "+ albums.get(position));
+		int delete = albumDAO.delete(albums.get(position));
 		albums.remove(position);
 		notifyDataSetChanged();
+		
+		Log.d("Remove REsult",delete+"");
 	}
 	
 }
