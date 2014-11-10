@@ -14,13 +14,19 @@ import android.app.Fragment;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.Toast;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
@@ -40,6 +46,7 @@ public class FPhoto extends Fragment implements OnItemClickListener, OnScrollLis
 		super.onCreate(savedInstanceState);
 		new SearchPhotosAsync().execute("Yangon");
 	}
+	
 	
 	
 	@Override
@@ -126,5 +133,27 @@ public class FPhoto extends Fragment implements OnItemClickListener, OnScrollLis
 				}
 			}
 		}
+	}
+	
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		// TODO Auto-generated method stub
+		menu.findItem(R.id.action_add_album).setVisible(true);
+	}
+	
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v,
+			ContextMenuInfo menuInfo) {
+		// TODO Auto-generated method stub
+	
+		MenuInflater inflater = new MenuInflater(getActivity());
+		inflater.inflate(R.menu.album_context_menu, menu);
+	}
+	
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		AdapterContextMenuInfo menuInfo = (AdapterContextMenuInfo) item.getMenuInfo();
+		return super.onContextItemSelected(item);
 	}
 }

@@ -43,11 +43,6 @@ public class FAlbum extends Fragment implements OnItemClickListener {
 		setHasOptionsMenu(true);
 	}
 	
-	@Override
-	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		// TODO Auto-generated method stub
-		menu.findItem(R.id.action_add_album).setVisible(true);
-	}
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -153,6 +148,14 @@ public class FAlbum extends Fragment implements OnItemClickListener {
 			}
 		return super.onOptionsItemSelected(item);
 	}
+	
+	
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		// TODO Auto-generated method stub
+		menu.findItem(R.id.action_add_album).setVisible(true);
+	}
+	
 	
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v,
