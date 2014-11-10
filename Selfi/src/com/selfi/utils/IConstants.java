@@ -10,5 +10,6 @@ public interface IConstants {
 	static final String SECRET = "2ad7071bcfd6b406";
 	static final String FORMAT = "json&nojsoncallback=1";
 	static final String SORT = "interestingness-desc";
+	static final String PER_PAGE = "interestingness-desc";
 	
 }

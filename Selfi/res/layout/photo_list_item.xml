@@ -4,7 +4,7 @@
     android:layout_height="match_parent" >
     
    <ImageView 
-       android:id="@+id/imageView1"
+       android:id="@+id/img_photo_thumbnail"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:layout_alignParentTop="true"
@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/txt_photo_description"
-        android:layout_toRightOf="@+id/imageView1"
+        android:layout_toRightOf="@+id/img_photo_thumbnail"
         android:text="Medium Text"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -24,7 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/txt_photo_title"
-        android:layout_toRightOf="@+id/imageView1"
+        android:layout_toRightOf="@+id/img_photo_thumbnail"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="TextView" />
    

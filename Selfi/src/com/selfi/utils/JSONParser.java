@@ -16,11 +16,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
  
 public class JSONParser {
  
-    public static String getStream(String url) {
+    public static InputStream getStream(String url) {
         InputStream is = null;
         try {
             DefaultHttpClient httpClient = new DefaultHttpClient();
@@ -35,10 +37,10 @@ public class JSONParser {
         } catch (IOException e) {
             e.printStackTrace();
         } 
-        return(readStream(is));
+        return is;
     }
         
-    static String readStream(InputStream is) {
+    public static String readStream(InputStream is) {
         StringBuilder sb = new StringBuilder();
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(
@@ -53,6 +55,11 @@ public class JSONParser {
             Log.e("Buffer Error", "Error converting result " + e.toString());
         }
         return(sb.toString());
+    }
+    
+    public static Bitmap readBitmap(String url){
+    	
+    	return BitmapFactory.decodeStream(getStream(url));
     }
  
     public static String postStream(String url, String data) {
@@ -80,8 +87,7 @@ public class JSONParser {
     public static JSONObject getJSONFromUrl(String url) {
         JSONObject jObj = null;
         try {
-        	String stream = getStream(url);        	
-            jObj = new JSONObject(getStream(url));
+            jObj = new JSONObject(readStream(getStream(url)));
         } catch (JSONException e) {
             Log.e("JSON Parser", "Error parsing data " + e.toString());
         }
@@ -91,10 +97,11 @@ public class JSONParser {
     public static JSONArray getJSONArrayFromUrl(String url) {
         JSONArray jArray = null;
         try {
-            jArray = new JSONArray(getStream(url));
+            jArray = new JSONArray(readStream(getStream(url)));
         } catch (JSONException e) {
             Log.e("JSON Parser", "Error parsing array " + e.toString());
         }
         return jArray;
     }
+    
 }

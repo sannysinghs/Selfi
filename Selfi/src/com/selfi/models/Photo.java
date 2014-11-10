@@ -1,5 +1,7 @@
 package com.selfi.models;
 
+import android.graphics.Bitmap;
+
 public class Photo {
 
 	private int id;
@@ -7,12 +9,19 @@ public class Photo {
 	private String photo_desc;
 	private String photo_title;
 	private String photo_url;
+	private Bitmap photo_thumbnail;
 	
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
+	}
+	public Bitmap getPhoto_thumbnail() {
+		return photo_thumbnail;
+	}
+	public void setPhoto_thumbnail(Bitmap photo_thumbnail) {
+		this.photo_thumbnail = photo_thumbnail;
 	}
 	public String getPhoto_id() {
 		return photo_id;
