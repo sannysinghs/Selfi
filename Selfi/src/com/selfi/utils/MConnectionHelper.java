@@ -2,13 +2,11 @@ package com.selfi.utils;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.graphics.Bitmap;
-import android.util.Log;
 
 import com.selfi.models.Photo;
 
@@ -33,14 +31,10 @@ public class MConnectionHelper {
 			e.printStackTrace();
 		}
 		
-		
 		return photos;
 	}
 	
-	public static Bitmap getBitMapImageFromURL(String url){
-		return JSONParser.readBitmap(url);
-		
-	}
+	
 
 	
 }

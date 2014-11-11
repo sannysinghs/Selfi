@@ -3,7 +3,7 @@ package com.selfi.utils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.util.Log;
+import android.graphics.Bitmap;
 
 import com.selfi.models.Photo;
 
@@ -22,22 +22,29 @@ public class MJSONHandaler {
 		p.setPhoto_title(title);
 		p.setPhoto_url(makeUrl(farm,server,id,secret));
 		p.setPhoto_desc("no_content");
-		
+			
 		new Thread(new Runnable() {
 			
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				p.setPhoto_thumbnail(MConnectionHelper.getBitMapImageFromURL(p.getPhoto_url()));
+				p.setPhoto_thumbnail(getBitMapImageFromURL(p.getPhoto_url()));
 			}
 		}).start();
 		
 		return p;
 	}
+	
+	
+	
+	
+	public static Bitmap getBitMapImageFromURL(String url){
+		return JSONParser.readBitmap(url);
+	}
 
 	private static String makeUrl(String farm, String server, String id, String secret) {
 		// TODO Auto-generated method stub
-		return "http://farm"+farm+".staticflickr.com/"+server+"/"+id+"_"+secret+"_s.jpg";
-		
+		return "http://farm"+farm+".staticflickr.com/"+server+"/"+id+"_"+secret+".jpg";
 	}
+	
 }

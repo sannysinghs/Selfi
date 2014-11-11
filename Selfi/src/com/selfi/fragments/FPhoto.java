@@ -1,34 +1,30 @@
 package com.selfi.fragments;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.selfi.MainActivity;
-import com.selfi.R;
-import com.selfi.adapters.PhotoAdapter;
-import com.selfi.models.Photo;
-import com.selfi.utils.MConnectionHelper;
-
 
 import android.app.Fragment;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
-import android.widget.Toast;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import com.selfi.R;
+import com.selfi.adapters.PhotoAdapter;
+import com.selfi.models.Photo;
+import com.selfi.utils.MConnectionHelper;
 
 public class FPhoto extends Fragment implements OnItemClickListener, OnScrollListener {
 
@@ -45,6 +41,10 @@ public class FPhoto extends Fragment implements OnItemClickListener, OnScrollLis
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		new SearchPhotosAsync().execute("Yangon");
+//		long totalMemory = Runtime.getRuntime().totalMemory();
+//		long freeMemory = Runtime.getRuntime().freeMemory();
+//		Log.d("Total memory", totalMemory +"");
+//		
 	}
 	
 	
@@ -72,46 +72,7 @@ public class FPhoto extends Fragment implements OnItemClickListener, OnScrollLis
 	
 	
 	
-	private class SearchPhotosAsync extends AsyncTask<String, Void, List<Photo>> {
-
-		@Override
-		protected List<Photo> doInBackground(String... params) {
-			// TODO Auto-generated method stub
-			fetching = true;
-			return MConnectionHelper.fetchPhotos(params[0],per_page,page_no);
-			
-		}
-		
-		@Override
-		protected void onPostExecute(List<Photo> result) {
-			// TODO Auto-generated method stub
-			if (mPhotoList == null) {
-				mPhotoList = new ArrayList<Photo>();
-			}
-			
-			if (mPhotoList.size() > 0) {
-				int size = mPhotoList.size();
-				for (int i = 0; i < result.size(); i++) {
-					mPhotoList.add(i+size, result.get(i));
-				}
-				adapter.notifyDataSetChanged();
-			}else{
-				mPhotoList.addAll(result);
-			}
-			
-			if (adapter == null) {
-				adapter = new PhotoAdapter(getActivity() , mPhotoList);
-				mPhotoListView.setAdapter(adapter);	
-			}
-			
-			fetching = false;
-		}
-		
-	}
-
-
-
-
+	
 	@Override
 	public void onScrollStateChanged(AbsListView view, int scrollState) {
 		// TODO Auto-generated method stub
@@ -138,22 +99,46 @@ public class FPhoto extends Fragment implements OnItemClickListener, OnScrollLis
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		// TODO Auto-generated method stub
-		menu.findItem(R.id.action_add_album).setVisible(true);
+		
 	}
 	
-	@Override
-	public void onCreateContextMenu(ContextMenu menu, View v,
-			ContextMenuInfo menuInfo) {
-		// TODO Auto-generated method stub
-	
-		MenuInflater inflater = new MenuInflater(getActivity());
-		inflater.inflate(R.menu.album_context_menu, menu);
+	/* --------------------Async Tasks------------------------*/
+	private class SearchPhotosAsync extends AsyncTask<String, Void, List<Photo>> {
+		
+		@Override
+		protected List<Photo> doInBackground(String... params) {
+			// TODO Auto-generated method stub
+			fetching = true;
+			return MConnectionHelper.fetchPhotos(params[0],per_page,page_no);
+			
+		}
+		
+		@Override
+		protected void onPostExecute(List<Photo> result) {
+			// TODO Auto-generated method stub
+			
+			Log.d("","Download ");
+			if (mPhotoList == null) {
+				mPhotoList = new ArrayList<Photo>();
+			}
+			
+			if (mPhotoList.size() > 0) {
+				int size = mPhotoList.size();
+				for (int i = 0; i < result.size(); i++) {
+					mPhotoList.add(i+size, result.get(i));
+				}
+				adapter.notifyDataSetChanged();
+			}else{
+				mPhotoList.addAll(result);
+			}
+			
+			if (adapter == null) {
+				adapter = new PhotoAdapter(getActivity() , mPhotoList);
+				mPhotoListView.setAdapter(adapter);	
+			}
+			fetching = !fetching;
+		}
+		
 	}
-	
-	@Override
-	public boolean onContextItemSelected(MenuItem item) {
-		// TODO Auto-generated method stub
-		AdapterContextMenuInfo menuInfo = (AdapterContextMenuInfo) item.getMenuInfo();
-		return super.onContextItemSelected(item);
-	}
+
 }

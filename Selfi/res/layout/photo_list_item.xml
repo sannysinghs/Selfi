@@ -1,22 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="#fff">
     
-   <ImageView 
+   <ImageView
        android:id="@+id/img_photo_thumbnail"
-       android:layout_width="wrap_content"
+       android:layout_width="match_parent"
        android:layout_height="wrap_content"
-       android:layout_alignParentTop="true"
-       android:background="#777"/>
+       android:adjustViewBounds="true"
+       android:background="#000000"
+       android:maxHeight="250dp"/>
 
     <TextView
         android:id="@+id/txt_photo_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/txt_photo_description"
-        android:layout_toRightOf="@+id/img_photo_thumbnail"
+        android:layout_below="@+id/img_photo_thumbnail"
         android:text="Medium Text"
+        android:padding="5dp"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -24,8 +27,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/txt_photo_title"
-        android:layout_toRightOf="@+id/img_photo_thumbnail"
         android:textAppearance="?android:attr/textAppearanceSmall"
+        android:padding="5dp"
         android:text="TextView" />
    
 </RelativeLayout>

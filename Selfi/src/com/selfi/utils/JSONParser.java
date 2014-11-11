@@ -18,6 +18,7 @@ import org.json.JSONObject;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.BitmapFactory.Options;
 import android.util.Log;
  
 public class JSONParser {
@@ -59,6 +60,26 @@ public class JSONParser {
     
     public static Bitmap readBitmap(String url){
     	
+//    	BitmapFactory.Options options = new BitmapFactory.Options();
+//    	options.inJustDecodeBounds = true;
+//    	BitmapFactory.decodeStream(getStream(url) , null, options);
+//    	
+//    	int outHeight = options.outHeight;
+//    	int outWidth = options.outWidth;
+//    	int inSampleSize = 1 ;
+//   
+//    	if (outWidth > 400 || outHeight > 100) {
+//			final int halfOutWidth =  outWidth / 2;
+//			final int halfOutHeight = outHeight / 2;
+//			while ((halfOutHeight / inSampleSize) > 100
+//	                && (halfOutWidth / inSampleSize) > 200) {
+//				inSampleSize *= 2;
+//				
+//			}
+//		}
+//    	options.inSampleSize = inSampleSize;
+//    	options.inJustDecodeBounds = false;
+//     	Log.d("","Width : "+ outWidth + " Height : "+ outHeight + " In sample size : "+inSampleSize);
     	return BitmapFactory.decodeStream(getStream(url));
     }
  

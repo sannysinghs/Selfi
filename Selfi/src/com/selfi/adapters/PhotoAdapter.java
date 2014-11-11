@@ -62,5 +62,34 @@ public class PhotoAdapter extends ArrayAdapter<Photo> {
 		
 		return v;
 	}
-
+	
+//private class BitMapWorkerAsyncTask extends AsyncTask<String, Void, Bitmap> {
+//		
+//		private String url;
+//		private WeakReference<ImageView> wRefImageView;
+//		
+//		public BitMapWorkerAsyncTask(ImageView imageView) {
+//			// TODO Auto-generated constructor stub
+//			wRefImageView = new WeakReference<ImageView>(imageView);
+//		}
+//		
+//		@Override
+//		protected Bitmap doInBackground(String... params) {
+//			// TODO Auto-generated method stub
+//			return 	MJSONHandaler.getBitMapImageFromURL(params[0]);
+//	
+//		}
+//		
+//		@Override
+//		protected void onPostExecute(Bitmap result) {
+//			// TODO Auto-generated method stub
+//			if (wRefImageView != null) {
+//	            ImageView imageView = wRefImageView.get();
+//	            if (imageView != null) {
+//	                imageView.setImageBitmap(result);
+//	            }
+//	        }
+//		}
+//	}
+//
 }
