@@ -11,5 +11,6 @@ public interface IConstants {
 	static final String FORMAT = "json&nojsoncallback=1";
 	static final String SORT = "interestingness-desc";
 	static final String PER_PAGE = "interestingness-desc";
+	static final int NO_OF_ITEMS_PER_PAGE = 15;
 	
 }

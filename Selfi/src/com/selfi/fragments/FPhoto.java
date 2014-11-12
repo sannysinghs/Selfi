@@ -38,7 +38,6 @@ public class FPhoto extends Fragment implements OnItemClickListener, OnScrollLis
 	ListView mPhotoListView;
 	PhotoAdapter adapter;
 	MConnectionHelper helper;
-	int per_page = 15;
 	int page_no = 1 ;
 	boolean fetching = false;
 	
@@ -46,14 +45,7 @@ public class FPhoto extends Fragment implements OnItemClickListener, OnScrollLis
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		
-//		String text = "Face";
-//		String url = IConstants.URL+"/?method="+IConstants.METHOD_SEARCH+"&api_key="+IConstants.KEY+"&text="+text+"&sort="+IConstants.SORT+"&page="+page_no+"&per_page="+ per_page +"&format="+IConstants.FORMAT;
-//		new SearchPhotosAsync().execute("Yangon");
-//		long totalMemory = Runtime.getRuntime().totalMemory();
-//		long freeMemory = Runtime.getRuntime().freeMemory();
-//		Log.d("Total memory", totalMemory +"");
-//		
+		helper = new MConnectionHelper(getActivity());
 	}
 	
 	
@@ -67,12 +59,8 @@ public class FPhoto extends Fragment implements OnItemClickListener, OnScrollLis
 		mPhotoListView.setOnItemClickListener(this);
 		mPhotoListView.setOnScrollListener(this);
 		
-		helper = new MConnectionHelper(getActivity());
-		helper.fetchPhotos("Face", per_page, page_no , mPhotoListView);
+		helper.RetrievPhotos("Face", IConstants.NO_OF_ITEMS_PER_PAGE, page_no , mPhotoListView);
 		
-		mPhotoList = helper.getPhotos();
-		
-		mPhotoListView.setAdapter(new PhotoAdapter(getActivity() , mPhotoList));	
 		return v;
 	}
 
@@ -103,10 +91,13 @@ public class FPhoto extends Fragment implements OnItemClickListener, OnScrollLis
 		if (view.getId() == R.id.listView_photo) {
 			int last = firstVisibleItem + visibleItemCount;
 			if (last == totalItemCount && totalItemCount > 0) {
+						Log.d("","I am fetching agaain");
 				if (!fetching) {
-						page_no++;
-//						helper.fetchPhotos("Face", per_page, page_no, mPhotoListView);
+					helper.RetrievPhotos("Face", IConstants.NO_OF_ITEMS_PER_PAGE, ++page_no , mPhotoListView);
+				}else{
+
 				}
+				
 			}
 		}
 	}

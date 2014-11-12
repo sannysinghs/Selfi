@@ -22,18 +22,18 @@ import com.selfi.models.Photo;
 public class MConnectionHelper {
 	
 	private MJSONHandaler mJSONHandler;
-	private JSONObject jPhotoObj;
-	private List<Photo> photos;
 	private Context ctx;
+	private PhotoAdapter photoAdapter;
+	List<Photo> photos;
 	public MConnectionHelper(Context ctx) {
 		// TODO Auto-generated constructor stub
 		mJSONHandler = new MJSONHandaler();
+		photos = new ArrayList<Photo>();
 		this.ctx = ctx;
 	}
 	
-	public void fetchPhotos(String text, int per_page , int page_no, final ListView mPhotoListView) {
-		// TODO Auto-generated method stub
-		photos = new ArrayList<Photo>();
+	//Volley JSONObject Request
+	public void RetrievPhotos(String text, int per_page , int page_no, final ListView mPhotoListView) {
 		String url = IConstants.URL+"/?method="+IConstants.METHOD_SEARCH+"&api_key="+IConstants.KEY+"&text="+text+"&sort="+IConstants.SORT+"&page="+page_no+"&per_page="+ per_page +"&format="+IConstants.FORMAT;
 		
 		JsonObjectRequest req = new JsonObjectRequest(Method.GET, url, null, 
@@ -41,9 +41,14 @@ public class MConnectionHelper {
 		
 					@Override
 					public void onResponse(JSONObject res) {
-						// TODO Auto-generated method stub
-						fetchPhoto(res);
-						mPhotoListView.setAdapter(new PhotoAdapter(ctx, photos));
+						// fetch photos and set it to adapter
+						if (photoAdapter == null) {
+							photoAdapter = new PhotoAdapter(ctx, FetchPhoto(res));
+							mPhotoListView.setAdapter(photoAdapter);
+						}
+						
+						photoAdapter.notifyDataSetChanged();
+						
 					}
 				}, new Response.ErrorListener() {
 
@@ -57,19 +62,22 @@ public class MConnectionHelper {
 		VolleyController.getInstance().addToRequestQueue(req);
 	}
 
-	protected void fetchPhoto(JSONObject res) {
+	//Create a list of photo from given json object and return 
+	private List<Photo> FetchPhoto(JSONObject res) {
 		JSONObject jsonObject = null;
 		
 		try {
 			jsonObject = new JSONObject(res.getString("photos"));
-			
 			JSONArray jPhotoArray = jsonObject.getJSONArray("photo");
-			
 			for (int i = 0; i < jPhotoArray.length(); i++) {
 			  Photo p =	mJSONHandler.getPhtoObjFromJObj(jPhotoArray.getJSONObject(i));
-			  photos.add(p);
+			  if (photos.size() > 0) {
+				photos.add(photos.size(), p);
+			  }else{
+				  photos.add(p);  
+			  }
+			  
 			}
-			
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -77,15 +85,6 @@ public class MConnectionHelper {
 			// TODO: handle exception
 			Log.e("JObj", jsonObject.toString());
 		}
-		
-		
-	}
-	
-	public List<Photo> getPhotos(){
-		return this.photos;
-	}
-	
-	
-
-	
+		return photos;
+	}	
 }
