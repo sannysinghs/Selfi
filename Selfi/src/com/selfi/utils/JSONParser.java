@@ -68,7 +68,7 @@ public class JSONParser {
 //    	int outWidth = options.outWidth;
 //    	int inSampleSize = 1 ;
 //   
-//    	if (outWidth > 400 || outHeight > 100) {
+//    	if (outWidth > 200 || outHeight > 100) {
 //			final int halfOutWidth =  outWidth / 2;
 //			final int halfOutHeight = outHeight / 2;
 //			while ((halfOutHeight / inSampleSize) > 100
