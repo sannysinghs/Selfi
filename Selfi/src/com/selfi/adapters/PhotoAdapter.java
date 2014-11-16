@@ -2,28 +2,25 @@ package com.selfi.adapters;
 
 import java.util.List;
 
-import com.selfi.R;
-import com.selfi.models.Photo;
-import com.selfi.utils.MConnectionHelper;
-
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.os.AsyncTask;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
+import com.selfi.R;
+import com.selfi.models.Photo;
+import com.selfi.utils.VolleyController;
 
 public class PhotoAdapter extends ArrayAdapter<Photo> {
 
 	List<Photo> photos ;
 	Context context;
-	View v;
-	
+	View convertView;
+	ImageLoader mImageLoader = VolleyController.getInstance().getImageLoader(); 
 	
 	public PhotoAdapter(Context context, List<Photo> photos) {
 		super(context, R.layout.photo_list_item,photos);
@@ -43,24 +40,39 @@ public class PhotoAdapter extends ArrayAdapter<Photo> {
 		return photos.get(position);
 	}
 	
+	public class ViewHolder{
+		TextView title;
+		TextView desc;
+		NetworkImageView thumbnail;
+	}
+	
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
 		
-		LayoutInflater inflater = ((Activity) context).getLayoutInflater();
+		ViewHolder holder;
 		
-		View v = inflater.inflate(R.layout.photo_list_item, null);
+		if (convertView == null) {
+			LayoutInflater inflater = ((Activity) context).getLayoutInflater();
+			convertView = inflater.inflate(R.layout.photo_list_item, null);
+			holder = new ViewHolder();
+			
+			
+			holder.title = (TextView) convertView.findViewById(R.id.txt_photo_title);
+			holder.desc = (TextView) convertView.findViewById(R.id.txt_photo_description);
+			holder.thumbnail = (NetworkImageView) convertView.findViewById(R.id.img_photo_thumbnail);
+			convertView.setTag(holder);
+		}else{
+			holder = (ViewHolder) convertView.getTag();
+		}
 		
-		TextView title = (TextView) v.findViewById(R.id.txt_photo_title);
-		TextView desc = (TextView) v.findViewById(R.id.txt_photo_description);
-		ImageView thumbnail = (ImageView) v.findViewById(R.id.img_photo_thumbnail);
+		
 		Photo photo = this.getItem(position);
 		
-		title.setText(photo.getPhoto_title());
-		desc.setText(photo.getPhoto_desc());
-		thumbnail.setImageBitmap(photo.getPhoto_thumbnail());
-		
-		return v;
+		holder.title.setText(photo.getPhoto_title());
+		holder.desc.setText(photo.getPhoto_desc());
+		holder.thumbnail.setImageUrl(photo.getPhoto_url(), mImageLoader);		
+		return convertView;
 	}
 	
 //private class BitMapWorkerAsyncTask extends AsyncTask<String, Void, Bitmap> {

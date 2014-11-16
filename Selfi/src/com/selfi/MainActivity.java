@@ -39,6 +39,7 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
+		
 		mTitle = mDrawerTitle = getTitle();
 		//Drawer layout of support widget
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);

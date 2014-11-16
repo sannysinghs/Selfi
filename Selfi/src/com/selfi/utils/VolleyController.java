@@ -37,7 +37,7 @@ public class VolleyController extends Application{
 	public ImageLoader getImageLoader(){
 		getRequestQueue();
 		if (mImageLoader == null) {
-			mImageLoader =  new ImageLoader(mRequestQueue, new MBitmapCache());
+			mImageLoader =  new ImageLoader(this.mRequestQueue, new MBitmapCache());
 		}
 		return mImageLoader;
 	}
