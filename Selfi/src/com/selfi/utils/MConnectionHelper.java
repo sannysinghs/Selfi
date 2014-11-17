@@ -17,6 +17,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.Request.Method;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.selfi.adapters.PhotoAdapter;
+import com.selfi.fragments.FPhoto;
 import com.selfi.models.Photo;
 
 public class MConnectionHelper {
@@ -25,6 +26,7 @@ public class MConnectionHelper {
 	private Context ctx;
 	private PhotoAdapter photoAdapter;
 	List<Photo> photos;
+	
 	public MConnectionHelper(Context ctx) {
 		// TODO Auto-generated constructor stub
 		mJSONHandler = new MJSONHandaler();
@@ -35,7 +37,7 @@ public class MConnectionHelper {
 	//Volley JSONObject Request
 	public void RetrievPhotos(String text, int per_page , int page_no, final ListView mPhotoListView) {
 		String url = IConstants.URL+"/?method="+IConstants.METHOD_SEARCH+"&api_key="+IConstants.KEY+"&text="+text+"&sort="+IConstants.SORT+"&page="+page_no+"&per_page="+ per_page +"&format="+IConstants.FORMAT;
-		
+		Log.d("URL",url);
 		JsonObjectRequest req = new JsonObjectRequest(Method.GET, url, null, 
 				new Response.Listener<JSONObject>() {
 		
@@ -45,8 +47,11 @@ public class MConnectionHelper {
 						if (photoAdapter == null) {
 							photoAdapter = new PhotoAdapter(ctx, FetchPhoto(res));
 							mPhotoListView.setAdapter(photoAdapter);
+							
+						}else{
+							photos = FetchPhoto(res);
 						}
-						
+						FPhoto.changeFetchStatus();
 						photoAdapter.notifyDataSetChanged();
 						
 					}
@@ -71,6 +76,7 @@ public class MConnectionHelper {
 			JSONArray jPhotoArray = jsonObject.getJSONArray("photo");
 			for (int i = 0; i < jPhotoArray.length(); i++) {
 			  Photo p =	mJSONHandler.getPhtoObjFromJObj(jPhotoArray.getJSONObject(i));
+			  Log.d("Photo Size", photos.size()+"");
 			  if (photos.size() > 0) {
 				photos.add(photos.size(), p);
 			  }else{
