@@ -6,6 +6,8 @@ import java.util.List;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Bundle;
@@ -17,6 +19,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.SearchView;
 
 import com.selfi.adapters.NaviDrawerAdapter;
 import com.selfi.fragments.FAlbum;
@@ -152,7 +155,12 @@ public class MainActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
+		
+		 SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+		 SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
+		 searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+		    
+		return super.onCreateOptionsMenu(menu);
 	}
 
 	@Override

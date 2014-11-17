@@ -3,6 +3,7 @@ package com.selfi.utils;
 public interface IConstants {
 
 	static final String URL = "https://api.flickr.com/services/rest";
+	static final String METHOD_RECENT = "flickr.interestingness.getList";
 	static final String METHOD_SEARCH = "flickr.photos.search";
 	static final String METHOD_GETINFO = "flickr.photos.getInfo";
 	static final String METHOD_COMMENTS = "flickr.photos.comments.getList";
@@ -12,5 +13,4 @@ public interface IConstants {
 	static final String SORT = "interestingness-desc";
 	static final String PER_PAGE = "interestingness-desc";
 	static final int NO_OF_ITEMS_PER_PAGE = 15;
-	
 }

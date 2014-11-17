@@ -9,19 +9,17 @@
         android:title="@string/action_settings"/>
 
     <item android:id="@+id/action_add_album"
-        android:orderInCategory="98"
+          android:orderInCategory="98"
           android:title="@string/action_add_album"
           android:showAsAction="ifRoom"
           android:icon="@drawable/ic_album_add"
           android:visible="false">
     </item>
     
-    <item android:id="@+id/search"
-        android:orderInCategory="95"
+   <item android:id="@+id/search"
           android:title="@string/search_title"
           android:icon="@drawable/ic_search"
           android:showAsAction="collapseActionView|ifRoom"
-          android:actionViewClass="android.widget.SearchView"
-          android:visible="false" />
+          android:actionViewClass="android.widget.SearchView" />
    
 </menu>

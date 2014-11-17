@@ -45,13 +45,12 @@ public class FPhoto extends Fragment implements OnItemClickListener, OnScrollLis
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		
 		v = inflater.inflate(R.layout.fragment_photo_layout, null);
 		mPhotoListView = (ListView) v.findViewById(R.id.listView_photo);
 		mPhotoListView.setOnItemClickListener(this);
 		mPhotoListView.setOnScrollListener(this);
-		helper.RetrievPhotos("Face", IConstants.NO_OF_ITEMS_PER_PAGE, page_no , mPhotoListView);
+		helper.RetrieveRecentPhotos(IConstants.NO_OF_ITEMS_PER_PAGE, page_no , mPhotoListView);
 		return v;
 	}
 
@@ -70,7 +69,6 @@ public class FPhoto extends Fragment implements OnItemClickListener, OnScrollLis
 		
 	}
 
-
 	@Override
 	public void onScroll(AbsListView view, int firstVisibleItem,
 			int visibleItemCount, int totalItemCount) {
@@ -83,7 +81,7 @@ public class FPhoto extends Fragment implements OnItemClickListener, OnScrollLis
 				if (!fetching) {
 					Log.d("","I am fetching agaain");
 					page_no++;
-					helper.RetrievPhotos("Face", IConstants.NO_OF_ITEMS_PER_PAGE, page_no , mPhotoListView);
+					helper.RetrieveRecentPhotos(IConstants.NO_OF_ITEMS_PER_PAGE, page_no , mPhotoListView);
 					changeFetchStatus();
 					
 				}else{

@@ -35,9 +35,10 @@ public class MConnectionHelper {
 	}
 	
 	//Volley JSONObject Request
-	public void RetrievPhotos(String text, int per_page , int page_no, final ListView mPhotoListView) {
-		String url = IConstants.URL+"/?method="+IConstants.METHOD_SEARCH+"&api_key="+IConstants.KEY+"&text="+text+"&sort="+IConstants.SORT+"&page="+page_no+"&per_page="+ per_page +"&format="+IConstants.FORMAT;
-		Log.d("URL",url);
+	public void RetrieveRecentPhotos(int per_page , int page_no, final ListView mPhotoListView) {
+//		String url = IConstants.URL+"/?method="+IConstants.METHOD_SEARCH+"&api_key="+IConstants.KEY+"&text="+text+"&sort="+IConstants.SORT+"&page="+page_no+"&per_page="+ per_page +"&format="+IConstants.FORMAT;
+		String url = IConstants.URL+"/?method="+IConstants.METHOD_RECENT+"&api_key="+IConstants.KEY+"&sort="+IConstants.SORT+"&page="+page_no+"&per_page="+ per_page +"&format="+IConstants.FORMAT;
+		
 		JsonObjectRequest req = new JsonObjectRequest(Method.GET, url, null, 
 				new Response.Listener<JSONObject>() {
 		

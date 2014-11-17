@@ -4,18 +4,19 @@
     <string name="app_name">Wrap</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    
+
     <string-array name="nav_drawer_items">
-        <item > Photos </item>
-        <item > Favourites </item>
-        <item > Albums </item>
+        <item> Photos </item>
+        <item> Favourites </item>
+        <item> Albums </item>
     </string-array>
-    
-    <array name="nav_drawer_icons"  >
-		<item >  @drawable/ic_photos </item>
-		<item >  @drawable/ic_whats_hot </item>
-		<item >  @drawable/ic_pages</item>
+
+    <array name="nav_drawer_icons">
+        <item>  @drawable/ic_photos </item>
+        <item>  @drawable/ic_whats_hot </item>
+        <item>  @drawable/ic_pages</item>
     </array>
+
     <string name="txt_album_title">Title</string>
     <string name="txt_album_desc">Description</string>
     <string name="action_delete">Delete</string>
@@ -25,4 +26,6 @@
     <string name="album_add_placeholder_title">title</string>
     <string name="search_title">Search photo</string>
     <string name="search_hint">Search photo</string>
+    <string name="title_activity_search_results">SearchResultsActivity</string>
+
 </resources>
