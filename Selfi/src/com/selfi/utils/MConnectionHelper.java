@@ -1,6 +1,7 @@
 package com.selfi.utils;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,6 +20,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.selfi.adapters.PhotoAdapter;
 import com.selfi.fragments.FPhoto;
 import com.selfi.models.Photo;
+import com.selfi.models.PhotoDetail;
 
 public class MConnectionHelper {
 	
@@ -76,8 +78,9 @@ public class MConnectionHelper {
 			jsonObject = new JSONObject(res.getString("photos"));
 			JSONArray jPhotoArray = jsonObject.getJSONArray("photo");
 			for (int i = 0; i < jPhotoArray.length(); i++) {
-			  Photo p =	mJSONHandler.getPhtoObjFromJObj(jPhotoArray.getJSONObject(i));
-			  Log.d("Photo Size", photos.size()+"");
+			  JSONObject jPhoto = jPhotoArray.getJSONObject(i);
+			  Photo p =	mJSONHandler.getPhtoObjFromJObj(jPhoto);
+			  p.setPhoto_detail(RetrievePhotoDetail(p.getPhoto_id()));
 			  if (photos.size() > 0) {
 				photos.add(photos.size(), p);
 			  }else{
@@ -93,5 +96,39 @@ public class MConnectionHelper {
 			Log.e("JObj", jsonObject.toString());
 		}
 		return photos;
-	}	
+	}
+	
+	
+	public PhotoDetail RetrievePhotoDetail(String id) {
+		
+		final PhotoDetail pDetail = new PhotoDetail();
+		String url = IConstants.URL+"/?method="+IConstants.METHOD_GETINFO+"&api_key="+IConstants.KEY+"&photo_id="+id+"&format="+IConstants.FORMAT;
+		JsonObjectRequest req = new JsonObjectRequest(Method.GET, url, null, 
+				new Response.Listener<JSONObject>() {
+		
+					@Override
+					public void onResponse(JSONObject res) {
+						// fetch photos and set it to adapter
+						try {
+							JSONObject jPDetail = res.getJSONObject("photo");
+							pDetail.setPhoto_desc(jPDetail.getJSONObject("description").getString("_content"));
+							Log.d("PhotoDetail", res.getJSONObject("photo").getString("dateuploaded"));
+							
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				}, new Response.ErrorListener() {
+
+					@Override
+					public void onErrorResponse(VolleyError e) {
+						// TODO Auto-generated method stub
+						
+					}
+				});
+		
+		VolleyController.getInstance().addToRequestQueue(req);
+		return pDetail;
+	}
 }

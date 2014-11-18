@@ -32,28 +32,6 @@ public class MJSONHandaler {
 		p.setPhoto_id(id);
 		p.setPhoto_title(title);
 		p.setPhoto_url(makeUrl(farm,server,id,secret));
-		p.setPhoto_desc("no_content");
-//		Bitmap bitmap = getBitMapImageFromURL(p.getPhoto_url());
-//		p.setPhoto_thumbnail(bitmap);
-		
-//		if (mBitmapCache.getBitmapFromCache(p.getPhoto_id()) == null) {
-//			
-//			new Thread(new Runnable() {
-//				@Override
-//				public void run() {
-//					// TODO Auto-generated method stub
-//					Bitmap bitmap = getBitMapImageFromURL(p.getPhoto_url());
-//					p.setPhoto_thumbnail(bitmap);
-////					Log.d("Bitmap" , "Image has been added");
-//					mBitmapCache.addBitmapToCache(p.getPhoto_id(), bitmap);
-//					
-//				}
-//			}).start();
-//		}else{
-//			Log.d("Bitmap" , "Image has been retrieved");
-//		}
-		
-		
 		return p;
 	}
 	

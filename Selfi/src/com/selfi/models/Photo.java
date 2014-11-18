@@ -10,6 +10,7 @@ public class Photo {
 	private String photo_title;
 	private String photo_url;
 	private Bitmap photo_thumbnail;
+	private PhotoDetail photo_detail;
 	
 	public int getId() {
 		return id;
@@ -49,6 +50,13 @@ public class Photo {
 	public void setPhoto_desc(String photo_desc) {
 		this.photo_desc = photo_desc;
 	}
+	public PhotoDetail getPhoto_detail() {
+		return photo_detail;
+	}
+	public void setPhoto_detail(PhotoDetail photo_detail) {
+		this.photo_detail = photo_detail;
+	}
+	
 	public Photo() {
 		
 	}

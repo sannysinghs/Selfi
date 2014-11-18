@@ -4,6 +4,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.selfi.R;
 import com.selfi.models.Photo;
+import com.selfi.utils.MStrUtils;
 import com.selfi.utils.VolleyController;
 
 public class PhotoAdapter extends ArrayAdapter<Photo> {
@@ -61,6 +63,7 @@ public class PhotoAdapter extends ArrayAdapter<Photo> {
 			holder.title = (TextView) convertView.findViewById(R.id.txt_photo_title);
 			holder.desc = (TextView) convertView.findViewById(R.id.txt_photo_description);
 			holder.thumbnail = (NetworkImageView) convertView.findViewById(R.id.img_photo_thumbnail);
+			
 			convertView.setTag(holder);
 		}else{
 			holder = (ViewHolder) convertView.getTag();
@@ -70,7 +73,7 @@ public class PhotoAdapter extends ArrayAdapter<Photo> {
 		Photo photo = this.getItem(position);
 		
 		holder.title.setText(photo.getPhoto_title());
-		holder.desc.setText(photo.getPhoto_desc());
+		holder.desc.setText(  MStrUtils.HTMLEncode(photo.getPhoto_detail().getPhoto_desc()));
 		holder.thumbnail.setImageUrl(photo.getPhoto_url(), mImageLoader);		
 		return convertView;
 	}
