@@ -51,9 +51,10 @@ public class PhotoDetail {
 	}
 
 
-	public void setInstace(PhotoDetail photoDetailFromJSONObj) {
+	@Override
+	public String toString() {
 		// TODO Auto-generated method stub
-		
+		return "Desc : " + this.getPhoto_desc() + "\n";
 	}
 	
 	
