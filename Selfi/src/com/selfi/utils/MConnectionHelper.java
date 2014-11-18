@@ -79,8 +79,11 @@ public class MConnectionHelper {
 			JSONArray jPhotoArray = jsonObject.getJSONArray("photo");
 			for (int i = 0; i < jPhotoArray.length(); i++) {
 			  JSONObject jPhoto = jPhotoArray.getJSONObject(i);
+			  
 			  Photo p =	mJSONHandler.getPhtoObjFromJObj(jPhoto);
+			  
 			  p.setPhoto_detail(RetrievePhotoDetail(p.getPhoto_id()));
+			  
 			  if (photos.size() > 0) {
 				photos.add(photos.size(), p);
 			  }else{
@@ -101,7 +104,7 @@ public class MConnectionHelper {
 	
 	public PhotoDetail RetrievePhotoDetail(String id) {
 		
-		final PhotoDetail pDetail = new PhotoDetail();
+		final PhotoDetail pDetail;
 		String url = IConstants.URL+"/?method="+IConstants.METHOD_GETINFO+"&api_key="+IConstants.KEY+"&photo_id="+id+"&format="+IConstants.FORMAT;
 		JsonObjectRequest req = new JsonObjectRequest(Method.GET, url, null, 
 				new Response.Listener<JSONObject>() {
@@ -110,13 +113,19 @@ public class MConnectionHelper {
 					public void onResponse(JSONObject res) {
 						// fetch photos and set it to adapter
 						try {
-							JSONObject jPDetail = res.getJSONObject("photo");
-							pDetail.setPhoto_desc(jPDetail.getJSONObject("description").getString("_content"));
-							Log.d("PhotoDetail", res.getJSONObject("photo").getString("dateuploaded"));
+//							JSONObject jPDetail = ;
+//							
+//							pDetail.setPhoto_desc(jPDetail.getJSONObject("description").getString("_content"));
+//							
+//							Log.d("PhotoDetail", res.getJSONObject("photo").getString("dateuploaded"));
+							
+							pDetail.setInstace(mJSONHandler.getPhotoDetailFromJSONObj(res.getJSONObject("photo")));
 							
 						} catch (JSONException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
+						} finally {
+							
 						}
 					}
 				}, new Response.ErrorListener() {

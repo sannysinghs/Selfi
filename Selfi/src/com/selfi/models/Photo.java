@@ -12,6 +12,19 @@ public class Photo {
 	private Bitmap photo_thumbnail;
 	private PhotoDetail photo_detail;
 	
+	
+	
+	public Photo() {}
+	public Photo(String photo_id,String title,String photo_url){
+		this.photo_id = photo_id;
+		this.photo_title = title;
+		this.photo_url = photo_url;
+	}
+	public Photo(int id, String photo_id, String title, String photo_url) {
+		this(photo_id,title,photo_url);
+		this.id = id;
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -56,20 +69,7 @@ public class Photo {
 	public void setPhoto_detail(PhotoDetail photo_detail) {
 		this.photo_detail = photo_detail;
 	}
-	
-	public Photo() {
-		
-	}
-	public Photo(String photo_id,String title,String photo_url){
-		this.photo_id = photo_id;
-		this.photo_title = title;
-		this.photo_url = photo_url;
-	}
-	public Photo(int id, String photo_id, String title, String photo_url) {
-		this(photo_id,title,photo_url);
-		this.id = id;
-	}
-	
+
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub

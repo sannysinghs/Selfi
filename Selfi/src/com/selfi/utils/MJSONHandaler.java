@@ -1,5 +1,6 @@
 package com.selfi.utils;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -7,6 +8,7 @@ import android.graphics.Bitmap;
 import android.util.Log;
 
 import com.selfi.models.Photo;
+import com.selfi.models.PhotoDetail;
 
 public class MJSONHandaler {
 	
@@ -20,9 +22,11 @@ public class MJSONHandaler {
 		
 	}
 	
+	
+	
 	public Photo getPhtoObjFromJObj(JSONObject object) throws JSONException {
 		// TODO Auto-generated method stub
-		final Photo p = new Photo();
+		Photo p = new Photo();
 		String id = object.getString("id");
 		String farm = object.getString("farm");
 		String title = object.getString("title");
@@ -46,5 +50,18 @@ public class MJSONHandaler {
 		// TODO Auto-generated method stub
 		return "http://farm"+farm+".staticflickr.com/"+server+"/"+id+"_"+secret+".jpg";
 	}
+
+	public PhotoDetail getPhotoDetailFromJSONObj(JSONObject object) throws JSONException {
+		// TODO Auto-generated method stub
+		PhotoDetail pDetail = new PhotoDetail();
+		
+		pDetail.setPhoto_desc( object.getJSONObject("description").getString("_content"));
+		pDetail.setPhoto_date(object.getString("dateuploaded"));
+		
+//		pDetail.setPhoto_owner() object.getJSONObject("owner");
+		
+		return pDetail;
+
+	}	
 	
 }
