@@ -78,8 +78,7 @@ public class FPhoto extends Fragment implements OnItemClickListener, OnScrollLis
 			int last = firstVisibleItem + visibleItemCount;
 			if (last == totalItemCount && totalItemCount > 0) {
 						
-				if (!fetching) {
-					Log.d("","I am fetching agaain");
+				if (!fetching && page_no <= 5) {
 					page_no++;
 					helper.RetrieveRecentPhotos(IConstants.NO_OF_ITEMS_PER_PAGE, page_no , mPhotoListView);
 					changeFetchStatus();

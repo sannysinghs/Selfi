@@ -73,38 +73,13 @@ public class PhotoAdapter extends ArrayAdapter<Photo> {
 		Photo photo = this.getItem(position);
 		
 		holder.title.setText(photo.getPhoto_title());
-		holder.desc.setText(  MStrUtils.HTMLEncode(photo.getPhoto_detail().getPhoto_desc()));
+		if (photo.getPhoto_detail() != null) {
+			holder.desc.setText(  MStrUtils.HTMLEncode(photo.getPhoto_detail().getPhoto_desc()));
+		}
 		holder.thumbnail.setImageUrl(photo.getPhoto_url(), mImageLoader);		
+		
 		return convertView;
 	}
 	
-//private class BitMapWorkerAsyncTask extends AsyncTask<String, Void, Bitmap> {
-//		
-//		private String url;
-//		private WeakReference<ImageView> wRefImageView;
-//		
-//		public BitMapWorkerAsyncTask(ImageView imageView) {
-//			// TODO Auto-generated constructor stub
-//			wRefImageView = new WeakReference<ImageView>(imageView);
-//		}
-//		
-//		@Override
-//		protected Bitmap doInBackground(String... params) {
-//			// TODO Auto-generated method stub
-//			return 	MJSONHandaler.getBitMapImageFromURL(params[0]);
-//	
-//		}
-//		
-//		@Override
-//		protected void onPostExecute(Bitmap result) {
-//			// TODO Auto-generated method stub
-//			if (wRefImageView != null) {
-//	            ImageView imageView = wRefImageView.get();
-//	            if (imageView != null) {
-//	                imageView.setImageBitmap(result);
-//	            }
-//	        }
-//		}
-//	}
-//
+
 }
