@@ -2,7 +2,7 @@ package com.selfi;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import com.newrelic.agent.android.NewRelic;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -41,6 +41,12 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		//New Relic Config
+		NewRelic.withApplicationToken(
+				"AAa142ddd57c567d199b0644657253cbeabf60c13f"
+				).start(this.getApplication());
+		
 		
 		
 		mTitle = mDrawerTitle = getTitle();
