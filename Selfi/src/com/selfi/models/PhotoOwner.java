@@ -1,6 +1,7 @@
 package com.selfi.models;
 
 public class PhotoOwner {
+	private String owner_id;
 	private String owner_name;
 	private String owner_thumbnail;
 	private String owner_url;
@@ -8,6 +9,14 @@ public class PhotoOwner {
 	
 	public PhotoOwner() {}
 	
+	public String getOwner_id() {
+		return owner_id;
+	}
+
+	public void setOwner_id(String owner_id) {
+		this.owner_id = owner_id;
+	}
+
 	public String getOwner_name() {
 		return owner_name;
 	}

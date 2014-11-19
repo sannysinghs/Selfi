@@ -13,4 +13,5 @@ public interface IConstants {
 	static final String SORT = "interestingness-desc";
 	static final String PER_PAGE = "interestingness-desc";
 	static final int NO_OF_ITEMS_PER_PAGE = 10;
+	static final String PHOTO_URL = "https://www.flickr.com/photos";
 }

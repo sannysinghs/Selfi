@@ -41,7 +41,6 @@ public class FPhoto extends Fragment implements OnItemClickListener, OnScrollLis
 		helper = new MConnectionHelper(getActivity());
 	}
 	
-	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -79,10 +78,10 @@ public class FPhoto extends Fragment implements OnItemClickListener, OnScrollLis
 			if (last == totalItemCount && totalItemCount > 0) {
 						
 				if (!fetching && page_no <= 5) {
+					Log.d("Fetching", "Fetching again");
 					page_no++;
 					helper.RetrieveRecentPhotos(IConstants.NO_OF_ITEMS_PER_PAGE, page_no , mPhotoListView);
 					changeFetchStatus();
-					
 				}else{
 
 				}

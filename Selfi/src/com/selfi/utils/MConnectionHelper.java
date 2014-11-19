@@ -54,7 +54,9 @@ public class MConnectionHelper {
 							photos = mJSONHandler.FetchPhotos(res);
 							photoAdapter = new PhotoAdapter(ctx,photos );
 							mPhotoListView.setAdapter(photoAdapter);
+							
 						}
+						FPhoto.changeFetchStatus();
 						photoAdapter.notifyDataSetChanged();
 					}
 				}, new Response.ErrorListener() {
@@ -80,7 +82,9 @@ public class MConnectionHelper {
 					public void onResponse(JSONObject res) {
 						// fetch photos and set it to adapter
 						try {
+							
 							p.setPhoto_detail(MJSONHandaler.getPhotoDetailFromJSONObj(res.getJSONObject("photo")));
+							FPhoto.changeFetchStatus();
 							
 						} catch (Exception e) {
 							// TODO Auto-generated catch block
