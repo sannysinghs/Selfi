@@ -71,7 +71,6 @@ public class PhotoAdapter extends ArrayAdapter<Photo> {
 			holder.owner_name = (TextView) convertView.findViewById(R.id.txt_profile_name);
 			holder.comment_count = (TextView) convertView.findViewById(R.id.txt_action_comment);
 			holder.views_count = (TextView) convertView.findViewById(R.id.txt_action_views);
-			
 			convertView.setTag(holder);
 		}else{
 			holder = (ViewHolder) convertView.getTag();
