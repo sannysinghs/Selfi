@@ -30,7 +30,7 @@ public class MConnectionHelper {
 	}
 	
 	//Volley JSONObject Request
-	public void RetrieveRecentPhotos(int per_page , int page_no, final ListView mPhotoListView , String ... query) {
+	public void RetrievePhotos(int per_page , int page_no, final ListView mPhotoListView , String ... query) {
 		String url;
 		
 		if ( query.length > 0  ) {
@@ -47,7 +47,6 @@ public class MConnectionHelper {
 						// fetch photos and set it to adapter
 						
 						if (photoAdapter != null ) {
-							
 							photos.addAll(photos.size(), mJSONHandler.FetchPhotos(res));
 							
 						}else{
@@ -56,7 +55,8 @@ public class MConnectionHelper {
 							mPhotoListView.setAdapter(photoAdapter);
 							
 						}
-//						FPhoto.changeFetchStatus();
+						//Change Status
+						FPhoto.changeFetchStatus();
 						photoAdapter.notifyDataSetChanged();
 					}
 				}, new Response.ErrorListener() {
@@ -83,12 +83,11 @@ public class MConnectionHelper {
 						// fetch photos and set it to adapter
 						try {
 							p.setPhoto_detail(MJSONHandaler.getPhotoDetailFromJSONObj(res.getJSONObject("photo")));
-							FPhoto.changeFetchStatus();
-							
 						} catch (Exception e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
+						
 					}
 				}, new Response.ErrorListener() {
 
@@ -100,10 +99,5 @@ public class MConnectionHelper {
 				});
 		
 		VolleyController.getInstance().addToRequestQueue(req);
-	}
-
-	public void SearchPhotos(int noOfItemsPerPage, int page_no,
-			ListView mPhotoListView, String query) {
-		
 	}
 }

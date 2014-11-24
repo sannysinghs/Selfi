@@ -48,7 +48,6 @@ public class MJSONHandaler {
 			// TODO: handle exception
 			Log.e("JObj", jsonObject.toString());
 		}
-		FPhoto.changeFetchStatus();
 		return photos;
 	}	
 	
@@ -90,7 +89,6 @@ public class MJSONHandaler {
 		pDetail.setPhoto_date(object.getString("dateuploaded"));
 		
 		pDetail.setPhoto_owner( getPhotoOwnerFromJSONObj(object.getJSONObject("owner")) ) ;
-//		pDetail.setPhoto_owner() object.getJSONObject("owner");
 		return pDetail;
 
 	}

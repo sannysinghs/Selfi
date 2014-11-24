@@ -114,7 +114,6 @@
         android:layout_below="@id/row_comment"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:padding="5dp"
-        android:autoLink="web"
         android:text="TextView" />
 
     

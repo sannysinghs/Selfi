@@ -32,14 +32,14 @@ public class FPhoto extends Fragment implements OnItemClickListener, OnScrollLis
 	ListView mPhotoListView;
 	PhotoAdapter adapter;
 	MConnectionHelper helper;
-	private int page_count;
+	private int pageCounter;
 	private String query;
 	
 	private static boolean fetching;
 	
 	public FPhoto() {
 		fetching = true;
-		page_count = 1;
+		pageCounter = 1;
 	}
 	
 	public FPhoto(String query) {
@@ -58,14 +58,15 @@ public class FPhoto extends Fragment implements OnItemClickListener, OnScrollLis
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 		v = inflater.inflate(R.layout.fragment_photo_layout, null);
 		mPhotoListView = (ListView) v.findViewById(R.id.listView_photo);
-		mPhotoListView.setOnItemClickListener(this);
-		mPhotoListView.setOnScrollListener(this);
 		if (!TextUtils.isEmpty(this.query)) {
-			helper.RetrieveRecentPhotos(IConstants.NO_OF_ITEMS_PER_PAGE, page_count , mPhotoListView , query );
+			//Search Photos by keyword
+			helper.RetrievePhotos(IConstants.NO_OF_ITEMS_PER_PAGE, pageCounter , mPhotoListView , query );
 		}else{
-			helper.RetrieveRecentPhotos(IConstants.NO_OF_ITEMS_PER_PAGE, page_count , mPhotoListView);
+			//Recent Photos
+			helper.RetrievePhotos(IConstants.NO_OF_ITEMS_PER_PAGE, pageCounter , mPhotoListView);
 		}
-		changeFetchStatus();
+		mPhotoListView.setOnScrollListener(this);
+		mPhotoListView.setOnItemClickListener(this);
 		return v;
 	}
 
@@ -74,7 +75,8 @@ public class FPhoto extends Fragment implements OnItemClickListener, OnScrollLis
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
 		// TODO Auto-generated method stub
-		Toast.makeText(getActivity(), position+" clicked", Toast.LENGTH_SHORT).show();
+//		Toast.makeText(getActivity(), position+" clicked", Toast.LENGTH_SHORT).show();
+		Log.i("Click", position + " has been clicked");
 	}
 	
 	
@@ -94,14 +96,16 @@ public class FPhoto extends Fragment implements OnItemClickListener, OnScrollLis
 			if (last == totalItemCount && totalItemCount > 0) {	
 				Log.d("Last Item and total count", last + " , "+ totalItemCount);
 				if (!fetching) {
-					if (page_count <= 5) {
+					if (pageCounter <= 4) {
 						Log.d("Fetching", "Fetching again");
-						page_count++;
-						helper.RetrieveRecentPhotos(IConstants.NO_OF_ITEMS_PER_PAGE, page_count , mPhotoListView);
+						pageCounter++;
+						helper.RetrievePhotos(IConstants.NO_OF_ITEMS_PER_PAGE, pageCounter , mPhotoListView);
 						changeFetchStatus();
 					}else{
 						Log.d("Fetching", "Reached end of scroll");
 					}
+				}else{
+					Log.e("Fetching", "I am busy");
 				}
 			}
 		}

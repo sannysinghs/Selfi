@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.selfi.R;
+import com.selfi.fragments.FPhoto;
 import com.selfi.models.Photo;
 import com.selfi.models.PhotoDetail;
 import com.selfi.utils.MStrUtils;
@@ -81,10 +82,7 @@ public class PhotoAdapter extends ArrayAdapter<Photo> {
 		}
 		
 		Photo photo = this.getItem(position);
-		holder.title.setText(photo.getPhoto_title());
-
-		holder.thumbnail.setImageUrl(photo.getPhoto_url(), mImageLoader);
-		
+		holder.title.setText(photo.getPhoto_title());		
 		if (photo.getPhoto_detail() != null) {
 			PhotoDetail detail = photo.getPhoto_detail();
 			holder.desc.setText(  MStrUtils.HTMLEncode(detail.getPhoto_desc()));
@@ -98,13 +96,9 @@ public class PhotoAdapter extends ArrayAdapter<Photo> {
 			convertView.startAnimation(AnimationUtils.loadAnimation(this.context, R.anim.list_anim_up_from_bottom ));
 			lastPostion = position;
 		}
-
-		if (photo.getPhoto_detail() != null) {
-			holder.desc.setText(  MStrUtils.HTMLEncode(photo.getPhoto_detail().getPhoto_desc()));
-		}
-		holder.thumbnail.setImageUrl(photo.getPhoto_url(), mImageLoader);		
 		
-
+		holder.thumbnail.setImageUrl(photo.getPhoto_url(), mImageLoader);
+		
 		return convertView;
 	}
 
