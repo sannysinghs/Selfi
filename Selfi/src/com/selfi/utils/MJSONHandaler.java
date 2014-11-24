@@ -37,7 +37,7 @@ public class MJSONHandaler {
 			for (int i = 0; i < jPhotoArray.length(); i++) {
 			  JSONObject jPhoto = jPhotoArray.getJSONObject(i);
 			  Photo p =	this.getPhtoObjFromJObj(jPhoto);
-			  MConnectionHelper.RetrievePhotoDetail(p);
+			  MConnectionHelper.SetPhotoDetail(p);
 			  photos.add(p);
 			  
 			}
@@ -78,7 +78,7 @@ public class MJSONHandaler {
 	}
 
 	private static String makeOwnerUrl(String server, String farm ,String owner_id) {
-		return"http://farm"+farm+".staticflickr.com/"+server+"/buddyicons/"+owner_id+"_q.jpg";
+		return"http://farm"+farm+".staticflickr.com/"+server+"/buddyicons/"+owner_id+".jpg";
 	}	
 	
 	public static PhotoDetail getPhotoDetailFromJSONObj(JSONObject object) throws JSONException {

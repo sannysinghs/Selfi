@@ -4,12 +4,13 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.selfi.R;
@@ -24,6 +25,7 @@ public class PhotoAdapter extends ArrayAdapter<Photo> {
 	Context context;
 	View convertView;
 	ImageLoader mImageLoader = VolleyController.getInstance().getImageLoader(); 
+	private int lastPostion = -1;
 	
 	public PhotoAdapter(Context context, List<Photo> photos) {
 		super(context, R.layout.photo_list_item,photos);
@@ -64,6 +66,7 @@ public class PhotoAdapter extends ArrayAdapter<Photo> {
 			LayoutInflater inflater = ((Activity) context).getLayoutInflater();
 			convertView = inflater.inflate(R.layout.photo_list_item, null);
 			holder = new ViewHolder();
+			
 			holder.title = (TextView) convertView.findViewById(R.id.txt_photo_title);
 			holder.desc = (TextView) convertView.findViewById(R.id.txt_photo_description);
 			holder.thumbnail = (NetworkImageView) convertView.findViewById(R.id.img_photo_thumbnail);
@@ -71,6 +74,7 @@ public class PhotoAdapter extends ArrayAdapter<Photo> {
 			holder.owner_name = (TextView) convertView.findViewById(R.id.txt_profile_name);
 			holder.comment_count = (TextView) convertView.findViewById(R.id.txt_action_comment);
 			holder.views_count = (TextView) convertView.findViewById(R.id.txt_action_views);
+			
 			convertView.setTag(holder);
 		}else{
 			holder = (ViewHolder) convertView.getTag();
@@ -89,6 +93,10 @@ public class PhotoAdapter extends ArrayAdapter<Photo> {
 			holder.views_count.setText(detail.getPhoto_views());
 		}
 		
+		if (position > lastPostion) {
+			convertView.startAnimation(AnimationUtils.loadAnimation(this.context, R.anim.list_anim_up_from_bottom ));
+			lastPostion = position;
+		}
 		return convertView;
 	}
 }

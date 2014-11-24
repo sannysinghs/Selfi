@@ -4,6 +4,7 @@ import java.util.List;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -31,9 +32,21 @@ public class FPhoto extends Fragment implements OnItemClickListener, OnScrollLis
 	ListView mPhotoListView;
 	PhotoAdapter adapter;
 	MConnectionHelper helper;
-	int page_no = 1 ;
-	private static boolean fetching = true;
+	private int page_count;
+	private String query;
 	
+	private static boolean fetching;
+	
+	public FPhoto() {
+		fetching = true;
+		page_count = 1;
+	}
+	
+	public FPhoto(String query) {
+		this();
+		this.query = query;
+	}
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -42,14 +55,17 @@ public class FPhoto extends Fragment implements OnItemClickListener, OnScrollLis
 	}
 	
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 		v = inflater.inflate(R.layout.fragment_photo_layout, null);
 		mPhotoListView = (ListView) v.findViewById(R.id.listView_photo);
 		mPhotoListView.setOnItemClickListener(this);
 		mPhotoListView.setOnScrollListener(this);
-		helper.RetrieveRecentPhotos(IConstants.NO_OF_ITEMS_PER_PAGE, page_no , mPhotoListView);
+		if (!TextUtils.isEmpty(this.query)) {
+			helper.RetrieveRecentPhotos(IConstants.NO_OF_ITEMS_PER_PAGE, page_count , mPhotoListView , query );
+		}else{
+			helper.RetrieveRecentPhotos(IConstants.NO_OF_ITEMS_PER_PAGE, page_count , mPhotoListView);
+		}
+		changeFetchStatus();
 		return v;
 	}
 
@@ -76,16 +92,19 @@ public class FPhoto extends Fragment implements OnItemClickListener, OnScrollLis
 		if (view.getId() == R.id.listView_photo) {
 			int last = firstVisibleItem + visibleItemCount;
 			if (last == totalItemCount && totalItemCount > 0) {
-						
-				if (!fetching && page_no <= 5) {
-					Log.d("Fetching", "Fetching again");
-					page_no++;
-					helper.RetrieveRecentPhotos(IConstants.NO_OF_ITEMS_PER_PAGE, page_no , mPhotoListView);
-					changeFetchStatus();
+				Log.d("Last Item and total count", last + " , "+ totalItemCount);
+				if (!fetching) {
+					if (page_count <= 5) {
+						Log.d("Fetching", "Fetching again");
+						page_count++;
+						helper.RetrieveRecentPhotos(IConstants.NO_OF_ITEMS_PER_PAGE, page_count , mPhotoListView);
+						changeFetchStatus();
+					}else{
+						Log.d("Fetching", "Reached end of scroll");
+					}
 				}else{
-
+					Log.e("Fetching", "I am not fetching");
 				}
-				
 			}
 		}
 	}

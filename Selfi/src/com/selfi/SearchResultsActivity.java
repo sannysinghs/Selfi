@@ -1,16 +1,14 @@
 package com.selfi;
 
-import com.selfi.fragments.FAlbum;
-import com.selfi.fragments.FPhoto;
-
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.selfi.fragments.FPhoto;
 
 public class SearchResultsActivity extends Activity {
 
@@ -32,7 +30,7 @@ public class SearchResultsActivity extends Activity {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
             FragmentManager fm = getFragmentManager();
-            fm.beginTransaction().replace(R.id.search_result_content_frame, new FPhoto()).commit();
+            fm.beginTransaction().replace(R.id.search_result_content_frame, new FPhoto(query)).commit();
         }
     }
 
@@ -40,6 +38,9 @@ public class SearchResultsActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
+		if (menu.findItem(R.id.search) != null) {
+			menu.findItem(R.id.search).setVisible(false);
+		}
 		return true;
 	}
 

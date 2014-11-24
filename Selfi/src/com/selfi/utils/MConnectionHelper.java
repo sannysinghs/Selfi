@@ -9,6 +9,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.ListView;
 
@@ -35,9 +36,14 @@ public class MConnectionHelper {
 	}
 	
 	//Volley JSONObject Request
-	public void RetrieveRecentPhotos(int per_page , int page_no, final ListView mPhotoListView) {
-//		String url = IConstants.URL+"/?method="+IConstants.METHOD_SEARCH+"&api_key="+IConstants.KEY+"&text="+text+"&sort="+IConstants.SORT+"&page="+page_no+"&per_page="+ per_page +"&format="+IConstants.FORMAT;
-		String url = IConstants.URL+"/?method="+IConstants.METHOD_RECENT+"&api_key="+IConstants.KEY+"&sort="+IConstants.SORT+"&page="+page_no+"&per_page="+ per_page +"&format="+IConstants.FORMAT;
+	public void RetrieveRecentPhotos(int per_page , int page_no, final ListView mPhotoListView , String ... query) {
+		String url;
+		
+		if ( query.length > 0  ) {
+			url = IConstants.URL+"/?method="+IConstants.METHOD_SEARCH+"&api_key="+IConstants.KEY+"&text="+query[0]+"&sort="+IConstants.SORT+"&page="+page_no+"&per_page="+ per_page +"&format="+IConstants.FORMAT;
+		}else{
+			url = IConstants.URL+"/?method="+IConstants.METHOD_RECENT+"&api_key="+IConstants.KEY+"&sort="+IConstants.SORT+"&page="+page_no+"&per_page="+ per_page +"&format="+IConstants.FORMAT;
+		}
 		
 		JsonObjectRequest req = new JsonObjectRequest(Method.GET, url, null, 
 				new Response.Listener<JSONObject>() {
@@ -47,7 +53,6 @@ public class MConnectionHelper {
 						// fetch photos and set it to adapter
 						
 						if (photoAdapter != null ) {
-							
 							photos.addAll(photos.size(), mJSONHandler.FetchPhotos(res));
 							
 						}else{
@@ -56,7 +61,7 @@ public class MConnectionHelper {
 							mPhotoListView.setAdapter(photoAdapter);
 							
 						}
-						FPhoto.changeFetchStatus();
+//						FPhoto.changeFetchStatus();
 						photoAdapter.notifyDataSetChanged();
 					}
 				}, new Response.ErrorListener() {
@@ -72,7 +77,7 @@ public class MConnectionHelper {
 	}
 	
 	
-	public static void RetrievePhotoDetail(final Photo p) {
+	public static void SetPhotoDetail(final Photo p) {
 		
 		String url = IConstants.URL+"/?method="+IConstants.METHOD_GETINFO+"&api_key="+IConstants.KEY+"&photo_id="+p.getPhoto_id()+"&format="+IConstants.FORMAT;
 		JsonObjectRequest req = new JsonObjectRequest(Method.GET, url, null, 
@@ -101,5 +106,10 @@ public class MConnectionHelper {
 				});
 		
 		VolleyController.getInstance().addToRequestQueue(req);
+	}
+
+	public void SearchPhotos(int noOfItemsPerPage, int page_no,
+			ListView mPhotoListView, String query) {
+		
 	}
 }
