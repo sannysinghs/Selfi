@@ -1,11 +1,7 @@
 package com.selfi.utils;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
@@ -19,7 +15,6 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.selfi.adapters.PhotoAdapter;
 import com.selfi.fragments.FPhoto;
 import com.selfi.models.Photo;
-import com.selfi.models.PhotoDetail;
 
 public class MConnectionHelper {
 	
@@ -35,9 +30,14 @@ public class MConnectionHelper {
 	}
 	
 	//Volley JSONObject Request
-	public void RetrieveRecentPhotos(int per_page , int page_no, final ListView mPhotoListView) {
-//		String url = IConstants.URL+"/?method="+IConstants.METHOD_SEARCH+"&api_key="+IConstants.KEY+"&text="+text+"&sort="+IConstants.SORT+"&page="+page_no+"&per_page="+ per_page +"&format="+IConstants.FORMAT;
-		String url = IConstants.URL+"/?method="+IConstants.METHOD_RECENT+"&api_key="+IConstants.KEY+"&sort="+IConstants.SORT+"&page="+page_no+"&per_page="+ per_page +"&format="+IConstants.FORMAT;
+	public void RetrieveRecentPhotos(int per_page , int page_no, final ListView mPhotoListView , String ... query) {
+		String url;
+		
+		if ( query.length > 0  ) {
+			url = IConstants.URL+"/?method="+IConstants.METHOD_SEARCH+"&api_key="+IConstants.KEY+"&text="+query[0]+"&sort="+IConstants.SORT+"&page="+page_no+"&per_page="+ per_page +"&format="+IConstants.FORMAT;
+		}else{
+			url = IConstants.URL+"/?method="+IConstants.METHOD_RECENT+"&api_key="+IConstants.KEY+"&sort="+IConstants.SORT+"&page="+page_no+"&per_page="+ per_page +"&format="+IConstants.FORMAT;
+		}
 		
 		JsonObjectRequest req = new JsonObjectRequest(Method.GET, url, null, 
 				new Response.Listener<JSONObject>() {
@@ -54,7 +54,9 @@ public class MConnectionHelper {
 							photos = mJSONHandler.FetchPhotos(res);
 							photoAdapter = new PhotoAdapter(ctx,photos );
 							mPhotoListView.setAdapter(photoAdapter);
+							
 						}
+//						FPhoto.changeFetchStatus();
 						photoAdapter.notifyDataSetChanged();
 					}
 				}, new Response.ErrorListener() {
@@ -81,6 +83,7 @@ public class MConnectionHelper {
 						// fetch photos and set it to adapter
 						try {
 							p.setPhoto_detail(MJSONHandaler.getPhotoDetailFromJSONObj(res.getJSONObject("photo")));
+							FPhoto.changeFetchStatus();
 							
 						} catch (Exception e) {
 							// TODO Auto-generated catch block
@@ -97,5 +100,10 @@ public class MConnectionHelper {
 				});
 		
 		VolleyController.getInstance().addToRequestQueue(req);
+	}
+
+	public void SearchPhotos(int noOfItemsPerPage, int page_no,
+			ListView mPhotoListView, String query) {
+		
 	}
 }

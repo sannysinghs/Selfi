@@ -12,7 +12,9 @@ public class PhotoDetail {
 	private String photo_owner_id;
 	private String photo_desc;
 	private String photo_comment_count;
+	private String photo_views;
 	private PhotoOwner photo_owner;
+	
 	
 	public PhotoDetail() {	}
 	
@@ -36,6 +38,16 @@ public class PhotoDetail {
 	public void setPhoto_comment_count(String photo_comment_count) {
 		this.photo_comment_count = photo_comment_count;
 	}
+	public String getPhoto_views() {
+		return photo_views;
+	}
+
+
+	public void setPhoto_views(String photo_views) {
+		this.photo_views = photo_views;
+	}
+
+
 	public String getPhoto_owner_id() {
 		return photo_owner_id;
 	}

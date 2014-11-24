@@ -12,8 +12,6 @@ public class Photo {
 	private Bitmap photo_thumbnail;
 	private PhotoDetail photo_detail;
 	
-	
-	
 	public Photo() {}
 	public Photo(String photo_id,String title,String photo_url){
 		this.photo_id = photo_id;
